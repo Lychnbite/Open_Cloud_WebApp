@@ -1,0 +1,121 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid px-1 px-sm-3 py-5 mx-auto">
+  <div class="row d-flex justify-content-center">
+      <div class="row card0">
+          <div class="card1 col-lg-8 col-md-7">
+              <small>Open Cloud</small>
+              <div class="text-center">
+                  <img class="image mt-5" src="https://i.imgur.com/M8VyA2h.png">
+              </div>
+              <div class="row px-3 mt-3 mb-3">
+                  <h1 class="large-font mr-3">{{temperature}}&#176;</h1>
+                  <div class="d-flex flex-column mr-3">
+                      <h2 class="mt-3 mb-0"> {{city|capfirst}} </h2>
+                      <small>{% now "DATETIME_FORMAT" %}</small>
+                  </div>
+                  <div class="d-flex flex-column text-center">
+                      <h3 class="fa fa-sun-o mt-4"></h3>
+                      <small> {{description|capfirst}} </small>
+                      
+                  </div>
+                  <div>
+                    <span class="icon ml-3"><img class="img-fluid" src="https://img.icons8.com/emoji/96/000000/sun-emoji.png"/></span>
+                  </div>
+              </div>
+          </div>
+          <div class="card2 col-lg-4 col-md-5">
+              <div class="row px-3">
+                <form action="{% url 'home' %}" class="form-inline" method="POST">
+                  {% csrf_token %}
+                  
+                        <input class="mb-3 mr-sm-2" type="search" placeholder="Enter City" aria-label="Search" name ="cityname">
+                        <button type="submit" class="btn btn-primary my-2 my-sm-0">Search</button>
+                   
+                </form>
+              </div>
+              <div class="mr-5">
+                  <p class="light-text suggestion">Edirne</p>
+                  <p class="light-text suggestion">İstanbul</p>
+                  <p class="light-text suggestion">Ankara</p>
+                  <p class="light-text suggestion">Tekirdağ</p>
+            
+                  <div class="line my-5"></div>
+
+                  <p>Weather Details</p>
+                  <div class="row px-3">
+                      <p class="light-text">Cloudy</p>
+                      <p class="ml-auto">12%</p>
+                  </div>
+                  <div class="row px-3">
+                      <p class="light-text">Humidity</p>
+                      <p class="ml-auto">{{humidity}}%</p>
+                  </div>
+                  <div class="row px-3">
+                      <p class="light-text">Wind</p>
+                      <p class="ml-auto">{{wind_speed}}km/h</p>
+                  </div>
+                  <div class="row px-3">
+                      <p class="light-text">Rain</p>
+                      <p class="ml-auto">0mm</p>
+                  </div>
+
+                  <div class="line mt-3"></div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+<!--güncel olmayan-->
+
+<div class="container">
+
+  <div class="row">
+
+      <div class="col-md-4 ml-5">
+          <h5>City: {{city|capfirst}}</h5>
+          <h5>Description: {{description|capfirst}}</h5>
+          <h5>Temperature: {{temperature}}°C</h5>
+          <h5>Country:{{country_name}}</h5>
+          <h5>Feels Like:{{feels}}°C</h5>    
+      </div>
+          {% if icon == "01d" or "01n" %}
+      <div class="col-md-6">
+              <img class="rounded float-end" src="{% static 'images/01d.png' %}">
+          {% elif icon == "02d" or "02n" %}
+              <img class="rounded float-end" src="{% static 'images/02d.png' %}">
+          {% elif icon == "03d" or "03n" %}
+              <img class="rounded float-end" src="{% static 'images/03d.png' %}">
+          {% elif icon == "04d" or "04n" %}
+              <img class="rounded float-end" src="{% static 'images/04d.png' %}">
+      </div>
+           {% endif %}
+      
+      
+  </div>
+</div>
+<div class="container">
+  <div class="row"></div>
+  <div class="row">
+      <div class="col-md-10">
+          <a type="button" class="btn btn-info ml-4" href="{% url 'hourly' %}">Info</a>
+      </div>
+  </div>
+</div>
+<!--ilk container bitiş-->
